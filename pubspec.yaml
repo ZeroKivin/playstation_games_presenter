@@ -1,0 +1,29 @@
+name: playstation_games_presenter
+description: Flutter elementary project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.15.1 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  elementary:
+  dio:
+  retrofit:
+  provider:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+  retrofit_generator:
+  build_runner:
+  json_serializable:
+
+flutter:
+  uses-material-design: true
