@@ -22,6 +22,7 @@ class GameListScreen extends ElementaryWidget<IGameListWidgetModel> {
         builder: (_, games) => _GameList(
           games: games,
           nameStyle: wm.gameNameStyle,
+          onTapGameWidget: (Game data) => wm.onTapGameWidget(data),
         ),
       ),
     );
@@ -51,14 +52,16 @@ class _ErrorWidget extends StatelessWidget {
 }
 
 class _GameList extends StatelessWidget {
-  const _GameList({
-    Key? key,
-    required this.games,
-    required this.nameStyle,
-  }) : super(key: key);
+  const _GameList(
+      {Key? key,
+      required this.games,
+      required this.nameStyle,
+      required this.onTapGameWidget})
+      : super(key: key);
 
   final Iterable<Game>? games;
   final TextStyle nameStyle;
+  final Function(Game) onTapGameWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -77,10 +80,12 @@ class _GameList extends StatelessWidget {
         ),
         physics: const BouncingScrollPhysics(),
         itemCount: games.length,
-        padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 5),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+        cacheExtent: 300,
         itemBuilder: (_, index) => _GameWidget(
               data: games.elementAt(index),
               nameStyle: nameStyle,
+              onTap: onTapGameWidget,
             ));
   }
 }
@@ -97,44 +102,49 @@ class _EmptyList extends StatelessWidget {
 }
 
 class _GameWidget extends StatelessWidget {
-  const _GameWidget({
-    Key? key,
-    required this.data,
-    required this.nameStyle,
-  }) : super(key: key);
+  const _GameWidget(
+      {Key? key,
+      required this.data,
+      required this.nameStyle,
+      required this.onTap})
+      : super(key: key);
 
   final Game data;
   final TextStyle nameStyle;
+  final Function(Game) onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Container(
-        decoration: BoxDecoration(
+    return GestureDetector(
+      onTap: () => onTap(data),
+      child: Card(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
-          image: DecorationImage(
-            image: NetworkImage(data.image),
-            fit: BoxFit.cover,
-          ),
         ),
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: 50,
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: Colors.black.withOpacity(0.3),
-              borderRadius:
-                  const BorderRadius.vertical(bottom: Radius.circular(15)),
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            image: DecorationImage(
+              image: NetworkImage(data.image),
+              fit: BoxFit.cover,
             ),
-            child: Center(
-              child: Text(
-                data.name,
-                style: nameStyle,
-                textAlign: TextAlign.center,
+          ),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: 50,
+              padding: const EdgeInsets.all(5),
+              decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.3),
+                borderRadius:
+                    const BorderRadius.vertical(bottom: Radius.circular(15)),
+              ),
+              child: Center(
+                child: Text(
+                  data.name,
+                  style: nameStyle,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),

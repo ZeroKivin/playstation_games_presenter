@@ -9,8 +9,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Playstation Games',
-      theme: AppTheme.light().themeData,
       debugShowCheckedModeBanner: false,
+      theme: AppTheme.light().themeData,
       home: const GameListScreen(),
     );
   }

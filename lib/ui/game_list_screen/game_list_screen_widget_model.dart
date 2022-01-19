@@ -5,6 +5,7 @@ import 'package:playstation_games_presenter/domain/game/game.dart';
 import 'package:playstation_games_presenter/res/theme/app_typography.dart';
 import 'package:playstation_games_presenter/ui/game_list_screen/game_list_screen.dart';
 import 'package:playstation_games_presenter/ui/game_list_screen/game_list_screen_model.dart';
+import 'package:playstation_games_presenter/ui/game_screen/game_screen.dart';
 import 'package:provider/provider.dart';
 
 GameListScreenWidgetModel gameListScreenWidgetModelFactory(
@@ -30,6 +31,14 @@ class GameListScreenWidgetModel
 
   @override
   TextStyle get gameNameStyle => _gameNameStyle;
+
+  @override
+  void onTapGameWidget(Game data) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (_) => const GameScreen(),
+      settings: RouteSettings(arguments: data),
+    ));
+  }
 
   @override
   void initWidgetModel() {
@@ -69,4 +78,6 @@ abstract class IGameListWidgetModel extends IWidgetModel {
   ListenableState<EntityState<Iterable<Game>>> get gameListState;
 
   TextStyle get gameNameStyle;
+
+  void onTapGameWidget(Game data);
 }

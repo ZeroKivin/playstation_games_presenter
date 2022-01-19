@@ -9,7 +9,4 @@ class GameRepository {
 
   Future<Iterable<Game>> getAllGames() =>
       _client.getAll().then((value) => value.map(mapGame));
-
-  Future<Game> getGame(String id) =>
-      _client.getGame(id).then((value) => mapGame(value));
 }

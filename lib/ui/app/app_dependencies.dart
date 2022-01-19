@@ -5,6 +5,7 @@ import 'package:playstation_games_presenter/data/api/game/game_client.dart';
 import 'package:playstation_games_presenter/data/repository/game_repository.dart';
 import 'package:playstation_games_presenter/ui/app/app.dart';
 import 'package:playstation_games_presenter/ui/game_list_screen/game_list_screen_model.dart';
+import 'package:playstation_games_presenter/ui/game_screen/game_screen_madel.dart';
 import 'package:playstation_games_presenter/utils/error/default_error_handler.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,7 @@ class _AppDependenciesState extends State<AppDependencies> {
   late final GameClient _gameClient;
   late final GameRepository _gameRepository;
   late final GameListScreenModel _gameListScreenModel;
+  late final GameScreenModel _gameScreenModel;
 
   @override
   void initState() {
@@ -41,6 +43,7 @@ class _AppDependenciesState extends State<AppDependencies> {
       _gameRepository,
       _defaultErrorHandler,
     );
+    _gameScreenModel = GameScreenModel();
   }
 
   @override
@@ -52,6 +55,9 @@ class _AppDependenciesState extends State<AppDependencies> {
         ),
         Provider<GameListScreenModel>(
           create: (_) => _gameListScreenModel,
+        ),
+        Provider<GameScreenModel>(
+          create: (_) => _gameScreenModel,
         )
       ],
       child: widget.app,

@@ -11,7 +11,4 @@ abstract class GameClient {
 
   @GET(AppUrls.all)
   Future<List<GameData>> getAll();
-
-  @GET(AppUrls.game)
-  Future<GameData> getGame(@Query('id') String id);
 }
